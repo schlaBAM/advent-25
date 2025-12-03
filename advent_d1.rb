@@ -15,7 +15,6 @@ def main
 end
 
 def rotate(position, rotations, direction)
-  rotations %= MAX_POSITION
   if direction == 'L'
     (position - rotations) % MAX_POSITION
   else
