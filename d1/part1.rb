@@ -6,7 +6,7 @@ MAX_POSITION = 100
 def main
   current_position = START_POSITION
 
-  File.foreach('input.txt', chomp: true).count do |seq|
+  File.foreach('d1/input.txt', chomp: true).count do |seq|
     direction = seq[0].upcase
     rotations = seq[1..].to_i
     current_position = rotate(current_position, rotations, direction)
