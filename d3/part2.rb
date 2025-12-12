@@ -20,20 +20,22 @@ def joltage(num)
   index_dump = []
   bank_length = digits.length
 
-  until bank_length == BANK_SIZE
-    if digits.length - digits_index[current_index].length > BANK_SIZE
+  # puts "BANK SIZE: #{bank_length}"
+
+  while bank_length > BANK_SIZE
+    if bank_length - digits_index[current_index].length > BANK_SIZE
+      # puts "IF #{current_index} #{digits_index[current_index]} #{digits_index[current_index].length}"
       index_dump << digits_index[current_index]
       bank_length -= digits_index[current_index].length
     else
       digits_to_delete = bank_length - BANK_SIZE
-
-      while digits_to_delete > 0 
-        # IDEA: put indexes into an array, and delete from the back
-
-        index_dump << digits_index[current_index][0...digits_to_delete]
-        bank_length -= digits_index[current_index][0...digits_to_delete].length
-      end
+      # IDEA: put indexes into an array, and delete from the back
+      puts " ELSE #{current_index} #{digits_index[current_index][0...digits_to_delete]} #{digits_index[current_index][0...digits_to_delete].length}"
+      index_dump << digits_index[current_index][0...digits_to_delete]
+      bank_length -= digits_index[current_index][0...digits_to_delete].length
     end
+    # puts "nums: #{index_dump}"
+    # puts bank_length
     current_index += 1
   end
 
