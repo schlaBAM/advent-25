@@ -6,7 +6,7 @@ end
 
 def roll_access(grid)
   neighbors = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
-  result = Array.new(grid.length) {Array.new(grid[0].length)}
+  result = Array.new(grid.length) { Array.new(grid[0].length) }
 
   grid.each_with_index do |line, row|
     line.each_with_index do |val, col|
