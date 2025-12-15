@@ -22,7 +22,15 @@ end
 
 def count_freshness(list, ranges)
   list.count do |id|
-    ranges.any? { |first, last| id >= first && id <= last} # binary search this instead if list grows
+    ranges.bsearch do |first, last|
+      if id < first
+        -1
+      elsif id > last
+        1
+      else
+        0
+      end
+    end
   end
 end
 
