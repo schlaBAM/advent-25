@@ -4,18 +4,17 @@ def main
   operations = input.pop
   values = input.map { |row| row.map(&:to_i) }
 
-  # if we're sure the rows are equal length this can all just be values.transpose
-  columns = Hash.new { |h, k| h[k] = [] }
-
-  values.each do |arr|
-    arr.each_with_index do |val, idx|
-      columns[idx] << val
+  values.each do |row|
+    row.each_with_index do |val, idx|
+      accumulators[idx] = if accumulators[idx].nil?
+                            val
+                          else
+                            accumulators[idx].send(operations[idx], val)
+                          end
     end
   end
 
-  columns.each_key.sum do |idx|
-    columns[idx].reduce { |acc, val| acc.send(operations[idx], val) }
-  end
+  accumulators.sum
 end
 
 puts main
