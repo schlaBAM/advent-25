@@ -1,16 +1,30 @@
 def main
-  input = File.readlines('input.txt', chomp: true).map(&:chars)
+  rows = File.readlines('input.txt', chomp: true)
 
-  operations = input.pop.reject { |c| c == ' ' }
-  columns = input.transpose.map { |row| row.join.strip }
+  ops = rows.pop.delete(' ').chars
+  op_index = 0
 
-  num_groups = columns
-               .slice_before { |v| v == '' }
-               .map { |g| g.reject(&:empty?).map(&:to_i) }
+  total = 0
+  numbers = []
 
-  num_groups.each_with_index.sum do |nums, index|
-    nums.reduce { |acc, num| acc.send(operations[index], num) }
+  (0...rows[0].length).each do |col|
+    current = ''
+
+    rows.each do |row|
+      num = row[col]
+      current << num if num && num != ' '
+    end
+
+    if current.empty? && !numbers.empty?
+      total += numbers.reduce { |a, b| a.public_send(ops[op_index], b) }
+      numbers.clear
+      op_index += 1
+    elsif !current.empty?
+      numbers << current.to_i
+    end
   end
+
+  total += numbers.reduce { |a, b| a.public_send(ops[op_index], b) } unless numbers.empty? # last col purge
 end
 
 puts main
